@@ -54,7 +54,7 @@ Luego de presionar el boton, en la consola del intellij aparecera un codigo como
 2020-12-15 20:26:36.575  INFO 280 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 849 ms
 2020-12-15 20:26:36.720  INFO 280 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2020-12-15 20:26:36.873  INFO 280 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-**2020-12-15 20:26:36.880  INFO 280 --- [           main] ar.com.mzanetti.iveo.Application         : Started Application in 1.534 seconds (JVM running for 1.919)**
+2020-12-15 20:26:36.880  INFO 280 --- [           main] ar.com.mzanetti.iveo.Application         : Started Application in 1.534 seconds (JVM running for 1.919)
 
 ```
 Una vez que en la consola veamos la siguiente linea;
