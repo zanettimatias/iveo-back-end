@@ -31,6 +31,7 @@ public class Application {
 
 3. Correr la clase, presionando el boton verde con forma de flecha. Adjunto ejemplo.
 
+https://github.com/zanettimatias/iveo-backend/blob/master/assets/intellijrun.png
 
 
 
