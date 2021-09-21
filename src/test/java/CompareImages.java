@@ -13,9 +13,9 @@ import java.util.List;
 
 public class CompareImages {
 
-    public final String img1Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\cola-cola-1.png";
-    public final String img2Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\sprite_lata.png";
-    public final String img3Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\coca-cola-2.png";
+    public final String img1Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\2.png";
+    public final String img2Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\3.png";
+    public final String img3Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\1.png";
 
     @Test
     public void compareImages() {
