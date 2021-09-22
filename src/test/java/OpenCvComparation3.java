@@ -28,10 +28,7 @@ public class OpenCvComparation3 {
             System.exit(0);
         }
 
-        //-- Step 1: Detect the keypoints using SURF Detector, compute the descriptors
-        double hessianThreshold = 400;
-        int nOctaves = 4, nOctaveLayers = 3;
-        boolean extended = false, upright = false;
+
         ORB detector = ORB.create();
         MatOfKeyPoint keypointsObject = new MatOfKeyPoint(), keypointsScene = new MatOfKeyPoint();
         Mat descriptorsObject = new Mat(), descriptorsScene = new Mat();

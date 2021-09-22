@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 public class OpenCvComparation2 {
 
-    public final String img1Url = "/Users/mzanetti/IdeaProjects/iveo-backend/src/test/resources/3.png";
-    public final String img2Url = "/Users/mzanetti/IdeaProjects/iveo-backend/src/test/resources/1.png";
-    public final String img3Url = "/Users/mzanetti/IdeaProjects/iveo-backend/src/test/resources/H1to3p.xml";
+    public final String img2Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\1.png";
+    public final String img1Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\2.png";
+    public final String img3Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\main\\resources\\H1to3p.xml";
 
 
     @Test
@@ -89,7 +89,7 @@ public class OpenCvComparation2 {
         //! [2-nn matching]
 
         //! [ratio test filtering]
-        float ratioThreshold = 0.75f; // Nearest neighbor matching ratio
+        float ratioThreshold = 0.8f; // Nearest neighbor matching ratio
         List<KeyPoint> listOfMatched1 = new ArrayList<>();
         List<KeyPoint> listOfMatched2 = new ArrayList<>();
         List<KeyPoint> listOfKeypoints1 = kpts1.toList();
