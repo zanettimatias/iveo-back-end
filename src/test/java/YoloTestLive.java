@@ -33,10 +33,19 @@ public class YoloTestLive {
 
         VideoCapture videoCapture = new VideoCapture(0);
         Mat image = new Mat();
-
+        JFrame frame = new JFrame();
+        JLabel jLabel = new JLabel();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600,600);
+        frame.setContentPane(jLabel);
+        frame.setVisible(true);
+        frame.pack();
+        Integer i = 0;
 
         while (true){
             videoCapture.read(image);
+            frame.getContentPane().removeAll();
+
             YoloNetService yolo = new YoloNetService(
                     absolutePath + File.separator + "yolov3.cfg",
                     absolutePath + File.separator + "yolov3.weights",
@@ -56,26 +65,23 @@ public class YoloTestLive {
                         new Point(result.x + result.width, result.y + result.height),
                         new Scalar(0,0,1), 2, LINE_8, 0);
             }
-
-            showResult(image);
+            jLabel.setIcon(new ImageIcon(getImage(image)));
+            jLabel.repaint();
         }
     }
-    public static void showResult(Mat img) {
+    public BufferedImage getImage(Mat img) {
         Imgproc.resize(img, img, new Size(640, 480));
         MatOfByte matOfByte = new MatOfByte();
+        Imgcodecs.imencode(".jpg", img, matOfByte);
         byte[] byteArray = matOfByte.toArray();
         BufferedImage bufImage = null;
         try {
             InputStream in = new ByteArrayInputStream(byteArray);
             bufImage = ImageIO.read(in);
-            JFrame frame = new JFrame();
-            frame.getContentPane().add(new JLabel(new ImageIcon(bufImage)));
-            frame.pack();
-            frame.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return bufImage;
     }
-
 
 }

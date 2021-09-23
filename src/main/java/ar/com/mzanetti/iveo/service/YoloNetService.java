@@ -88,8 +88,8 @@ public class YoloNetService {
         Mat inputBlob = blobFromImage(frame,
                 1 / 255.0,
                 new Size(width, height),
-                new Scalar(0.0),
-                true, false, CV_32F);
+                new Scalar(0),
+                true, false);
 
         net.setInput(inputBlob);
 

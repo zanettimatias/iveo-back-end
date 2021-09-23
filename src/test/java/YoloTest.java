@@ -26,7 +26,7 @@ public class YoloTest {
         String absolutePath = file.getAbsolutePath();
 
 
-        Mat image = Imgcodecs.imread(absolutePath + File.separator + "bd" + File.separator + "1.png");
+        Mat image = Imgcodecs.imread(absolutePath + File.separator + "bd" + File.separator + "fideos.jpeg");
 
         YoloNetService yolo = new YoloNetService(
                 absolutePath + File.separator + "yolov3.cfg",
