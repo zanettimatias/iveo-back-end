@@ -1,6 +1,5 @@
 import ar.com.mzanetti.iveo.dto.ObjectDetectionResult;
-import ar.com.mzanetti.iveo.service.YoloNetService;
-import com.github.sarxos.webcam.Webcam;
+import ar.com.mzanetti.iveo.service.YoloNetServiceImpl;
 import org.junit.Test;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -15,7 +14,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
-import static org.opencv.highgui.HighGui.imshow;
 import static org.opencv.highgui.HighGui.waitKey;
 import static org.opencv.imgproc.Imgproc.LINE_8;
 import static org.opencv.imgproc.Imgproc.rectangle;
@@ -24,7 +22,7 @@ public class YoloTestLive {
 
 
     @Test
-    public void showYoloLive(){
+    public void showYoloLive() throws Exception {
         nu.pattern.OpenCV.loadLocally();
         String path = "src/test/resources";
         File file = new File(path);
@@ -46,11 +44,12 @@ public class YoloTestLive {
             videoCapture.read(image);
             frame.getContentPane().removeAll();
 
-            YoloNetService yolo = new YoloNetService(
+      /*      YoloNetServiceImpl yolo = new YoloNetServiceImpl(
                     absolutePath + File.separator + "yolov3.cfg",
                     absolutePath + File.separator + "yolov3.weights",
                     absolutePath + File.separator +"coco.names",
-                    608, 608);
+                    608, 608);*/
+            YoloNetServiceImpl yolo = new YoloNetServiceImpl();
             yolo.setup();
 
             List<ObjectDetectionResult> results = yolo.predict(image);

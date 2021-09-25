@@ -2,3 +2,4 @@
 /target/
 #Archivo muy pesado como para ternerlo comiteado
 /src/test/resources/**.weights
+/src/main/resources/**.weights

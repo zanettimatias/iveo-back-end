@@ -5,7 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class Producto {
@@ -19,9 +21,12 @@ public class Producto {
     private String contenido;
     private String color;
     private String descripcion;
-    private Binary image;
     private Date fechaCreacion;
     private Date fechaUltMod;
+
+    @DBRef
+    private List<Imagen> imagenes;
+
     private Boolean activo;
 
     public long getId() {
@@ -96,14 +101,6 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Binary getImage() {
-        return image;
-    }
-
-    public void setImage(Binary image) {
-        this.image = image;
-    }
-
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -126,5 +123,13 @@ public class Producto {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public List<Imagen> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
     }
 }

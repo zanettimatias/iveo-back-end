@@ -1,5 +1,5 @@
 import ar.com.mzanetti.iveo.dto.ObjectDetectionResult;
-import ar.com.mzanetti.iveo.service.YoloNetService;
+import ar.com.mzanetti.iveo.service.YoloNetServiceImpl;
 
 import org.junit.Test;
 import org.opencv.core.Mat;
@@ -19,20 +19,21 @@ import static org.opencv.imgproc.Imgproc.rectangle;
 public class YoloTest {
 
     @Test
-    public void findObjects() {
+    public void findObjects() throws Exception {
         nu.pattern.OpenCV.loadLocally();
         String path = "src/test/resources";
         File file = new File(path);
         String absolutePath = file.getAbsolutePath();
 
 
-        Mat image = Imgcodecs.imread(absolutePath + File.separator + "bd" + File.separator + "fideos.jpeg");
+        Mat image = Imgcodecs.imread(absolutePath + File.separator + "bd" + File.separator + "sal.png");
 
-        YoloNetService yolo = new YoloNetService(
+/*        YoloNetServiceImpl yolo = new YoloNetServiceImpl(
                 absolutePath + File.separator + "yolov3.cfg",
                 absolutePath + File.separator + "yolov3.weights",
                 absolutePath + File.separator +"coco.names",
-                608, 608);
+                608, 608);*/
+        YoloNetServiceImpl yolo = new YoloNetServiceImpl();
         yolo.setup();
 
         List<ObjectDetectionResult> results = yolo.predict(image);

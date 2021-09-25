@@ -2,6 +2,8 @@ package ar.com.mzanetti.iveo.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public class ProductoDto {
     public String usuarioId;
     String marca;
@@ -11,7 +13,7 @@ public class ProductoDto {
     String contenido;
     String color;
     String descripcion;
-    MultipartFile imagen;
+    List<MultipartFile> imagenes;
 
     public String getUsuarioId() {
         return usuarioId;
@@ -77,11 +79,11 @@ public class ProductoDto {
         this.descripcion = descripcion;
     }
 
-    public MultipartFile getImagen() {
-        return imagen;
+    public List<MultipartFile> getImagenes() {
+        return imagenes;
     }
 
-    public void setImagen(MultipartFile imagen) {
-        this.imagen = imagen;
+    public void setImagenes(List<MultipartFile> imagenes) {
+        this.imagenes = imagenes;
     }
 }
