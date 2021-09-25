@@ -1,10 +1,18 @@
+import ar.com.mzanetti.iveo.Application;
 import ar.com.mzanetti.iveo.dto.ObjectDetectionResult;
+import ar.com.mzanetti.iveo.service.YoloNetService;
 import ar.com.mzanetti.iveo.service.YoloNetServiceImpl;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,7 +26,12 @@ import static org.opencv.highgui.HighGui.waitKey;
 import static org.opencv.imgproc.Imgproc.LINE_8;
 import static org.opencv.imgproc.Imgproc.rectangle;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {OpenCvLibrary.class, Application.class})
 public class YoloTestLive {
+
+    @Autowired
+    YoloNetService yoloNetService;
 
 
     @Test
@@ -27,32 +40,26 @@ public class YoloTestLive {
         String path = "src/test/resources";
         File file = new File(path);
         String absolutePath = file.getAbsolutePath();
-
+        System.setProperty("java.awt.headless", "false");
 
         VideoCapture videoCapture = new VideoCapture(0);
         Mat image = new Mat();
         JFrame frame = new JFrame();
         JLabel jLabel = new JLabel();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600,600);
+
         frame.setContentPane(jLabel);
         frame.setVisible(true);
         frame.pack();
         Integer i = 0;
+        frame.setSize(640, 480);
 
-        while (true){
+        while (true) {
             videoCapture.read(image);
-            frame.getContentPane().removeAll();
+            //jLabel.repaint();
 
-      /*      YoloNetServiceImpl yolo = new YoloNetServiceImpl(
-                    absolutePath + File.separator + "yolov3.cfg",
-                    absolutePath + File.separator + "yolov3.weights",
-                    absolutePath + File.separator +"coco.names",
-                    608, 608);*/
-            YoloNetServiceImpl yolo = new YoloNetServiceImpl();
-            yolo.setup();
 
-            List<ObjectDetectionResult> results = yolo.predict(image);
+            List<ObjectDetectionResult> results = yoloNetService.predict(image);
 
             System.out.printf("Detected %d objects:\n", results.size());
             for (ObjectDetectionResult result : results) {
@@ -62,12 +69,13 @@ public class YoloTestLive {
                 rectangle(image,
                         new Point(result.x, result.y),
                         new Point(result.x + result.width, result.y + result.height),
-                        new Scalar(0,0,1), 2, LINE_8, 0);
+                        new Scalar(0, 0, 1), 2, LINE_8, 0);
             }
             jLabel.setIcon(new ImageIcon(getImage(image)));
             jLabel.repaint();
         }
     }
+
     public BufferedImage getImage(Mat img) {
         Imgproc.resize(img, img, new Size(640, 480));
         MatOfByte matOfByte = new MatOfByte();
