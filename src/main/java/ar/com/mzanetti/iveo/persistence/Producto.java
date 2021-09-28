@@ -1,6 +1,8 @@
 package ar.com.mzanetti.iveo.persistence;
 
+import ar.com.mzanetti.iveo.annotations.Cascade;
 import org.bson.types.Binary;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +14,7 @@ import java.util.List;
 @Document
 public class Producto {
     @Id
-    private long id;
+    private ObjectId id;
     private String usuarioId;
     private String marca;
     private String modelo;
@@ -25,15 +27,16 @@ public class Producto {
     private Date fechaUltMod;
 
     @DBRef
+    @Cascade
     private List<Imagen> imagenes;
 
     private Boolean activo;
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

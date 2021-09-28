@@ -31,6 +31,19 @@ public class ProductoController {
         return ResponseEntity.ok("sucess");
     }
 
+
+    @RequestMapping("/match")
+    public ResponseEntity<String> matchProducto() throws Exception {
+        String img2Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\8.png";
+        FileInputStream input = new FileInputStream(img2Url);
+        MultipartFile multipartFile = new MockMultipartFile("fileItem",
+                "1.png", "image/png", IOUtils.toByteArray(input));
+
+
+
+        return ResponseEntity.ok("sucess");
+    }
+
     @RequestMapping("/new/test")
     public ResponseEntity<String> addProductoTest() throws Exception {
         ProductoDto producto = new ProductoDto();

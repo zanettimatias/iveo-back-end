@@ -1,6 +1,7 @@
 package ar.com.mzanetti.iveo.persistence;
 
 import org.bson.types.Binary;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,9 +10,17 @@ import java.util.List;
 @Document
 public class Imagen {
     @Id
-    private long id;
+    private ObjectId id;
     private Binary image;
     private List<Integer> patrones;
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
     public Imagen(Binary image) {
         this.image = image;

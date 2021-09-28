@@ -1,11 +1,14 @@
 package ar.com.mzanetti.iveo.business;
 
 import ar.com.mzanetti.iveo.dto.ProductoDto;
+import ar.com.mzanetti.iveo.dto.ProductoMatchDto;
 import ar.com.mzanetti.iveo.persistence.Producto;
 import ar.com.mzanetti.iveo.service.DtoService;
 import ar.com.mzanetti.iveo.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductoBusinessImpl implements ProductoBusiness {
@@ -35,5 +38,4 @@ public class ProductoBusinessImpl implements ProductoBusiness {
         producto.getImagenes().forEach(imagen -> imagen.setPatrones(yoloNetBusiness.getClassFounded(imagen)));
         return productoService.save(producto);
     }
-
 }
