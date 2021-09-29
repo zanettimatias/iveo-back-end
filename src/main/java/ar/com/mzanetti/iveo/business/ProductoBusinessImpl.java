@@ -25,17 +25,21 @@ public class ProductoBusinessImpl implements ProductoBusiness {
         return productoService.save(dtoService.producto(dto));
     }
 
-
     /**
      * @Param ProductoDto
      * Funcion para procesar el producto
-     * @1
-     *
-     * **/
+     * @1 Descompone el Dto, para el producto
+     * @2 Busca las clases de YOLO dentro de la imagen
+     * @3 Guarda el producto en la BD
+     **/
     @Override
     public Producto procesar(ProductoDto dto) throws Exception {
+        this.validarProducto(dto);
         Producto producto = dtoService.producto(dto);
         producto.getImagenes().forEach(imagen -> imagen.setPatrones(yoloNetBusiness.getClassFounded(imagen)));
         return productoService.save(producto);
+    }
+
+    private void validarProducto(ProductoDto dto) {
     }
 }

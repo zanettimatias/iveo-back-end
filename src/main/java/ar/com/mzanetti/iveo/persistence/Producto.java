@@ -32,6 +32,9 @@ public class Producto {
 
     private Boolean activo;
 
+    public Producto() {
+    }
+
     public ObjectId getId() {
         return id;
     }

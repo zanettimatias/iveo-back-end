@@ -1,18 +1,23 @@
-package ar.com.mzanetti.iveo.persistence;
+package ar.com.mzanetti.iveo.dto;
 
+import ar.com.mzanetti.iveo.persistence.Imagen;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document
-public class Imagen {
-    @Id
+public class ImageFoundDto {
+
     private ObjectId id;
     private Binary image;
     private List<Integer> patrones;
+    private int match;
+
+    public ImageFoundDto(Imagen imagen) {
+        this.id = imagen.getId();
+        this.image = imagen.getImage();
+        this.patrones = imagen.getPatrones();
+    }
 
     public ObjectId getId() {
         return id;
@@ -20,13 +25,6 @@ public class Imagen {
 
     public void setId(ObjectId id) {
         this.id = id;
-    }
-
-    public Imagen() {
-    }
-
-    public Imagen(Binary image) {
-        this.image = image;
     }
 
     public Binary getImage() {
@@ -37,16 +35,19 @@ public class Imagen {
         this.image = image;
     }
 
-    public Imagen(Binary image, List<Integer> patrones) {
-        this.image = image;
-        this.patrones = patrones;
-    }
-
     public List<Integer> getPatrones() {
         return patrones;
     }
 
     public void setPatrones(List<Integer> patrones) {
         this.patrones = patrones;
+    }
+
+    public int getMatch() {
+        return match;
+    }
+
+    public void setMatch(int match) {
+        this.match = match;
     }
 }

@@ -6,13 +6,14 @@ import org.opencv.core.MatOfDMatch;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.ORB;
+import org.opencv.imgproc.Imgproc;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ORBFlannPatternFactory {
+public class ORBFlannPatternFactory implements CompareInterface {
 
     public int compare(Mat img1, Mat img2) {
 
@@ -36,7 +37,6 @@ public class ORBFlannPatternFactory {
                 }
             }
         }
-        System.out.println("matches:" + listOfGoodMatches.size());
         return listOfGoodMatches.size();
     }
 
