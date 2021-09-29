@@ -55,53 +55,29 @@ public class YoloNetServiceImpl implements YoloNetService {
     }
 
 
-  /*  *//**
-     * Creates a new YOLO network.
-     *
-     * @param configPath  Path to the configuration file.
-     * @param weightsPath Path to the weights file.
-     * @param namesPath   Path to the names file.
-     * @param width       Width of the network as defined in the configuration.
-     * @param height      Height of the network as defined in the configuration.
-     *//*
-    public YoloNetServiceImpl(String configPath, String weightsPath, String namesPath, int width, int height) {
-        this.configPath = Paths.get(configPath);
-        this.weightsPath = Paths.get(weightsPath);
-        this.namesPath = Paths.get(namesPath);
-        this.width = width;
-        this.height = height;
-    }*/
-
     /**
      * Initialises the network.
-     *
-     * @return True if the network initialisation was successful.
      */
-    public boolean setup() {
+    public void setup() {
 
         net = readNetFromDarknet(
                 configPath.toAbsolutePath().toString(),
                 weightsPath.toAbsolutePath().toString());
-
-        // setup output layers
         outNames = net.getUnconnectedOutLayersNames();
-
-        // read names file
         try {
             names = Files.readAllLines(namesPath);
         } catch (IOException e) {
-            System.err.println("Could not read names file!");
+            System.err.println("No se encontraron los nombre dentro del archivo coco.names");
             e.printStackTrace();
         }
-
-        return !net.empty();
+        net.empty();
     }
 
     /**
-     * Runs the object detection on the frame.
+     * Metodo para detectar los objecto con YOLO
      *
      * @param frame Input frame.
-     * @return List of objects that have been detected.
+     * @return List of ObjectDetectionResult
      */
     public List<ObjectDetectionResult> predict(Mat frame) {
         Mat inputBlob = blobFromImage(frame,
@@ -111,26 +87,20 @@ public class YoloNetServiceImpl implements YoloNetService {
                 true, false);
 
         net.setInput(inputBlob);
-
-        // run detection
         List<Mat> outs = new ArrayList();
         net.forward(outs, outNames);
-
-        // evaluate result
         List<ObjectDetectionResult> result = postprocess(frame, outs);
-
-        // cleanup
         inputBlob.release();
 
         return result;
     }
 
     /**
-     * Remove the bounding boxes with low confidence using non-maxima suppression
+     * Metodo para encontrar los objetos YOLO con el menor valor de confindencia
      *
      * @param frame Input frame
-     * @param outs  Network outputs
-     * @return List of objects
+     * @param outs  List of Mat
+     * @return List of objectDetectionResult
      */
     private List<ObjectDetectionResult> postprocess(Mat frame, List<Mat> outs) {
         final List<Integer> classIds = new ArrayList<>();
@@ -138,13 +108,8 @@ public class YoloNetServiceImpl implements YoloNetService {
         final List<Rect2d> boxes = new ArrayList<>();
 
         float confidenceThreshold = 0.5f;
-        for (int i = 0; i < outs.size(); ++i) {
-            // extract the bounding boxes that have a high enough score
-            // and assign their highest confidence class prediction.
-            Mat result = outs.get(i);
-
+        for (Mat result : outs) {
             for (int j = 0; j < result.rows(); j++) {
-                // minMaxLoc implemented in java because it is 1D
                 Mat row = result.row(j);
                 Mat scores = row.colRange(5, result.cols());
                 Core.MinMaxLocResult mm = Core.minMaxLoc(scores);
@@ -181,8 +146,7 @@ public class YoloNetServiceImpl implements YoloNetService {
         // create result list
         List<ObjectDetectionResult> detections = new ArrayList<>();
         int[] ind = indices.toArray();
-        for (int i = 0; i < ind.length; ++i) {
-            final int idx = ind[i];
+        for (final int idx : ind) {
             final Rect2d box = boxes.get(idx);
             final int clsId = classIds.get(idx);
 
@@ -195,13 +159,6 @@ public class YoloNetServiceImpl implements YoloNetService {
                     box.height
             ));
         }
-
         return detections;
     }
-
-    /**
-     * Dataclass for object detection result.
-     */
-
-
 }
