@@ -7,10 +7,7 @@ import ar.com.mzanetti.iveo.dto.ProductoDto;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -65,16 +62,16 @@ public class TestController {
         return ResponseEntity.ok("sucess");
     }
 
-    @RequestMapping(path = "/new/multi", method = POST, consumes = { MediaType.APPLICATION_OCTET_STREAM_VALUE })
-    public ResponseEntity<String> addNewMulti(List<MultipartFile> multipartFiles) throws Exception {
-        multipartFiles.stream().forEach(multipartFile ->  System.out.println(multipartFile.getName()));
+    @RequestMapping(path = "/new/multi", method = POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> addNewMulti(@RequestParam String modelo, @RequestPart("files") List<MultipartFile> multipartFile, HttpServletRequest httpServletRequest) throws Exception {
+        // request.getHeaderNames();
         return ResponseEntity.ok("sucess");
     }
 
 
-    @RequestMapping(path = "/new/single", method = POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(path = "/new/single", method = POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> addNewSingle(HttpServletRequest request) throws Exception {
-        MultipartFile multipartFile = new MockMultipartFile("match.jsp",request.getInputStream());
+        MultipartFile multipartFile = new MockMultipartFile("match.jsp", request.getInputStream());
         ProductoDto dto = new ProductoDto();
         dto.setUsuarioId("asdsfaf");
         dto.getImagenes().add(multipartFile);

@@ -39,7 +39,7 @@ public class MatchBusinessImpl implements MatchBusiness {
     }
 
     /**
-     * Se Trabaja la excepcion dentro de Strem de iteracion
+     * Se Trabaja la excepcion dentro de Straem de iteracion
      */
     private Boolean handleExcpetionOnTransform(BufferedImage bufferedImage, ImageFoundDto imagen) {
         try {
