@@ -6,15 +6,24 @@ import ar.com.mzanetti.iveo.business.ProductoBusiness;
 import ar.com.mzanetti.iveo.dto.ProductoDto;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @RequestMapping("/test")
@@ -55,4 +64,29 @@ public class TestController {
         business.getCandidate(multipartFile);
         return ResponseEntity.ok("sucess");
     }
+
+    @RequestMapping(path = "/new/multi", method = POST, consumes = { MediaType.APPLICATION_OCTET_STREAM_VALUE })
+    public ResponseEntity<String> addNewMulti(List<MultipartFile> multipartFiles) throws Exception {
+        multipartFiles.stream().forEach(multipartFile ->  System.out.println(multipartFile.getName()));
+        return ResponseEntity.ok("sucess");
+    }
+
+
+    @RequestMapping(path = "/new/single", method = POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<String> addNewSingle(HttpServletRequest request) throws Exception {
+        MultipartFile multipartFile = new MockMultipartFile("match.jsp",request.getInputStream());
+        ProductoDto dto = new ProductoDto();
+        dto.setUsuarioId("asdsfaf");
+        dto.getImagenes().add(multipartFile);
+        productoBusiness.procesar(dto);
+        return ResponseEntity.ok("sucess");
+    }
+
+    @RequestMapping("/axios")
+    public ResponseEntity<String> axios() throws Exception {
+        System.out.println("llegue");
+        return ResponseEntity.ok("sucess");
+    }
+
+
 }

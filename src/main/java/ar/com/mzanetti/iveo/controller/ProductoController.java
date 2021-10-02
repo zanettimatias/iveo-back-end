@@ -30,7 +30,7 @@ public class ProductoController {
     MatchBusiness business;
 
     /***
-     * Metodo para agrega un nuevo producto
+     * Metodo para agregar un nuevo producto
      * */
     @RequestMapping("/new")
     public ResponseEntity<String> addProducto(@RequestBody ProductoDto dto) throws Exception {
