@@ -14,7 +14,34 @@ public class ProductoDto {
     String contenido;
     String color;
     String descripcion;
-    List<MultipartFile> imagenes = new ArrayList<>();
+    List<MultipartFile> files;
+
+    public ProductoDto(String marca, String modelo, String material, String envase, String contenido, String color, String descripcion, List<MultipartFile> files) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.material = material;
+        this.envase = envase;
+        this.contenido = contenido;
+        this.color = color;
+        this.descripcion = descripcion;
+        this.files = files;
+    }
+
+    /*Con el usuarioId, es raro pero puede pasar*/
+    public ProductoDto(String usuarioId, String marca, String modelo, String material, String envase, String contenido, String color, String descripcion, List<MultipartFile> files) {
+        this.usuarioId = usuarioId;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.material = material;
+        this.envase = envase;
+        this.contenido = contenido;
+        this.color = color;
+        this.descripcion = descripcion;
+        this.files = files;
+    }
+
+    public ProductoDto() {
+    }
 
     public String getUsuarioId() {
         return usuarioId;
@@ -80,11 +107,11 @@ public class ProductoDto {
         this.descripcion = descripcion;
     }
 
-    public List<MultipartFile> getImagenes() {
-        return imagenes;
+    public List<MultipartFile> getFiles() {
+        return files;
     }
 
-    public void setImagenes(List<MultipartFile> imagenes) {
-        this.imagenes = imagenes;
+    public void setFiles(List<MultipartFile> files) {
+        this.files = files;
     }
 }

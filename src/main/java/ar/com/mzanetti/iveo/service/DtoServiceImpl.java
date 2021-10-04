@@ -27,7 +27,6 @@ public class DtoServiceImpl implements DtoService {
         producto.setFechaUltMod(new Date());
         producto.setUsuarioId(dto.getUsuarioId());
         producto.setContenido(dto.getContenido());
-        producto.setImagenes(trasnformToImagen(dto.getImagenes()));
         producto.setActivo(true);
         return producto;
     }

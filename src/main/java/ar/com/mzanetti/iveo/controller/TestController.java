@@ -33,25 +33,6 @@ public class TestController {
     @Autowired
     ProductoBusiness productoBusiness;
 
-    @RequestMapping("/new")
-    public ResponseEntity<String> addProductoTest() throws Exception {
-        ProductoDto producto = new ProductoDto();
-        producto.setColor("rojo");
-        producto.setDescripcion("Coca Cola Comun");
-        producto.setEnvase("Lata");
-        producto.setMaterial("Metal");
-        producto.setUsuarioId("1");
-        String img2Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\1.png";
-        FileInputStream input = new FileInputStream(img2Url);
-        MultipartFile multipartFile = new MockMultipartFile("fileItem",
-                "1.png", "image/png", IOUtils.toByteArray(input));
-        List<MultipartFile> imagenes = new ArrayList<>();
-        imagenes.add(multipartFile);
-        producto.setImagenes(imagenes);
-        productoBusiness.procesar(producto);
-        return ResponseEntity.ok("sucess");
-    }
-
     @RequestMapping("/match")
     public ResponseEntity<String> matchProductoTest() throws Exception {
         String img2Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\8.png";
@@ -63,19 +44,10 @@ public class TestController {
     }
 
     @RequestMapping(path = "/new/multi", method = POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> addNewMulti(@RequestParam String modelo, @RequestPart("files") List<MultipartFile> multipartFile, HttpServletRequest httpServletRequest) throws Exception {
+    public ResponseEntity<String> addNewMulti(String marca, String modelo, String material, String envase,
+                                              String contenido, String color, String descripcion,
+                                              @RequestPart("files") List<MultipartFile> multipartFile, HttpServletRequest request) throws Exception {
         // request.getHeaderNames();
-        return ResponseEntity.ok("sucess");
-    }
-
-
-    @RequestMapping(path = "/new/single", method = POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> addNewSingle(HttpServletRequest request) throws Exception {
-        MultipartFile multipartFile = new MockMultipartFile("match.jsp", request.getInputStream());
-        ProductoDto dto = new ProductoDto();
-        dto.setUsuarioId("asdsfaf");
-        dto.getImagenes().add(multipartFile);
-        productoBusiness.procesar(dto);
         return ResponseEntity.ok("sucess");
     }
 

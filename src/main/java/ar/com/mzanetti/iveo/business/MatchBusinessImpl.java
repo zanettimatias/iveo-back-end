@@ -6,6 +6,7 @@ import ar.com.mzanetti.iveo.persistence.Producto;
 import ar.com.mzanetti.iveo.service.CriterioDeAceptacion;
 import ar.com.mzanetti.iveo.service.ImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
