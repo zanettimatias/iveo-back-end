@@ -19,6 +19,6 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional
     public Producto save(Producto producto) throws Exception {
-        return productoRepository.insert(producto);
+        return productoRepository.save(producto).block();
     }
 }

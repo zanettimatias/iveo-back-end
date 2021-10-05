@@ -1,6 +1,7 @@
 package ar.com.mzanetti.iveo.dto;
 
 import ar.com.mzanetti.iveo.persistence.Imagen;
+import ar.com.mzanetti.iveo.persistence.Patrones;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 
@@ -10,7 +11,7 @@ public class ImageFoundDto {
 
     private ObjectId id;
     private Binary image;
-    private List<Integer> patrones;
+    private Patrones patrones;
     private int match;
 
     public ImageFoundDto(Imagen imagen) {
@@ -35,11 +36,11 @@ public class ImageFoundDto {
         this.image = image;
     }
 
-    public List<Integer> getPatrones() {
+    public Patrones getPatrones() {
         return patrones;
     }
 
-    public void setPatrones(List<Integer> patrones) {
+    public void setPatrones(Patrones patrones) {
         this.patrones = patrones;
     }
 

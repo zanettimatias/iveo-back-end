@@ -9,5 +9,11 @@ import java.io.IOException;
 import java.util.List;
 
 public interface CompareBusiness {
-    public int transformAndCompare(BufferedImage match, byte[] img2) throws IOException;
+    int transformAndCompare(BufferedImage match, byte[] img2) throws IOException;
+
+    Mat transformToMatBufferedImage(BufferedImage img) throws IOException;
+
+    Mat transformToMatByte(byte[] img) throws IOException;
+
+    int compareDescriptors(Mat descriptor1, Mat descriptor2) throws IOException;
 }

@@ -1,5 +1,6 @@
 package ar.com.mzanetti.iveo.service;
 
+import ar.com.mzanetti.iveo.utils.OrbPatternUtil;
 import org.opencv.core.DMatch;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDMatch;
@@ -39,5 +40,32 @@ public class ORBFlannPatternFactory implements CompareInterface {
         }
         return listOfGoodMatches.size();
     }
+
+    public int compareDescriptors(Mat descriptors1, Mat descriptors2) {
+        DescriptorMatcher matcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMING);
+        List<MatOfDMatch> knnMatches = new ArrayList<>();
+        matcher.knnMatch(descriptors1, descriptors2, knnMatches, 2);
+
+        float ratioThresh = 0.8f;
+        List<DMatch> listOfGoodMatches = new ArrayList<>();
+        for (MatOfDMatch knnMatch : knnMatches) {
+            if (knnMatch.rows() > 1) {
+                DMatch[] matches = knnMatch.toArray();
+                if (matches[0].distance < ratioThresh * matches[1].distance) {
+                    listOfGoodMatches.add(matches[0]);
+                }
+            }
+        }
+        return listOfGoodMatches.size();
+    }
+
+    public OrbPatternUtil getKeyPointsAndDescriptor(Mat img1) {
+        ORB detector = ORB.create();
+        MatOfKeyPoint keypoints = new MatOfKeyPoint();
+        Mat descriptors = new Mat();
+        detector.detectAndCompute(img1, new Mat(), keypoints, descriptors);
+        return new OrbPatternUtil(keypoints,descriptors);
+    }
+
 
 }

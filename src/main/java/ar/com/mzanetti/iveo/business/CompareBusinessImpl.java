@@ -1,5 +1,7 @@
 package ar.com.mzanetti.iveo.business;
 
+import ar.com.mzanetti.iveo.persistence.Imagen;
+import ar.com.mzanetti.iveo.persistence.Patrones;
 import ar.com.mzanetti.iveo.persistence.Producto;
 import ar.com.mzanetti.iveo.repository.ProductoRepository;
 import ar.com.mzanetti.iveo.service.CompareInterface;
@@ -37,9 +39,24 @@ public class CompareBusinessImpl implements CompareBusiness {
 
     }
 
+    public int compareDescriptors(Mat descriptor1, Mat descriptor2) throws IOException {
+        return compareInterface.compareDescriptors(descriptor1, descriptor2);
+    }
+
+    public Mat transformToMatBufferedImage(BufferedImage img) throws IOException {
+        return convertMat(img);
+    }
+
+    public Mat transformToMatByte(byte[] img) throws IOException {
+        InputStream is = new ByteArrayInputStream(img);
+        BufferedImage bImage = ImageIO.read(is);
+        return convertMat(bImage);
+    }
+
 
     /**
      * bufferedImage convert mat
+     *
      * @param im
      * @return
      */
@@ -57,7 +74,8 @@ public class CompareBusinessImpl implements CompareBusiness {
     }
 
     /**
-     *  8-bit RGBA convert 8-bit RGB
+     * 8-bit RGBA convert 8-bit RGB
+     *
      * @param original
      * @param type
      * @return

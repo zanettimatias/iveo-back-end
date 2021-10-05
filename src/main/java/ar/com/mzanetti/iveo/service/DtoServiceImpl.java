@@ -28,6 +28,7 @@ public class DtoServiceImpl implements DtoService {
         producto.setUsuarioId(dto.getUsuarioId());
         producto.setContenido(dto.getContenido());
         producto.setActivo(true);
+        producto.setImagenes(trasnformToImagen(dto.getFiles()));
         return producto;
     }
 

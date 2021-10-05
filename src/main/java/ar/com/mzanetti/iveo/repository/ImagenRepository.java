@@ -1,7 +1,8 @@
 package ar.com.mzanetti.iveo.repository;
 
 import ar.com.mzanetti.iveo.persistence.Imagen;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-public interface ImagenRepository extends MongoRepository<Imagen, String> {
+public interface ImagenRepository extends ReactiveMongoRepository<Imagen, ObjectId> {
 }

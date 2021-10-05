@@ -9,6 +9,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,11 +18,12 @@ public class YoloNetBussinessImpl implements YoloNetBusiness {
 
     @Autowired
     YoloNetService yoloNetService;
+    @Autowired
+    CompareBusiness compareBusiness;
 
     @Override
-    public List<Integer> getClassFounded(Imagen imagen) {
-        Mat img1 = Imgcodecs.imread("C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\1.png");
-
-        return yoloNetService.predict(img1).stream().map(ObjectDetectionResult::getClassId).collect(Collectors.toList());
+    public List<Integer> getClassFounded(Imagen imagen) throws IOException {
+        return yoloNetService.predict(compareBusiness.transformToMatByte(
+                imagen.getImage().getData())).stream().map(ObjectDetectionResult::getClassId).collect(Collectors.toList());
     }
 }
