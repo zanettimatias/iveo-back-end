@@ -5,14 +5,17 @@ import ar.com.mzanetti.iveo.dto.ProductoMatchDto;
 import ar.com.mzanetti.iveo.persistence.Imagen;
 import ar.com.mzanetti.iveo.persistence.Patrones;
 import ar.com.mzanetti.iveo.persistence.Producto;
+import ar.com.mzanetti.iveo.repository.PatronesRepository;
 import ar.com.mzanetti.iveo.service.CompareInterface;
 import ar.com.mzanetti.iveo.service.DtoService;
 import ar.com.mzanetti.iveo.service.ProductoService;
 import ar.com.mzanetti.iveo.utils.OrbPatternUtil;
 import org.bson.json.JsonObject;
+import org.bson.types.ObjectId;
 import org.opencv.core.MatOfKeyPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.awt.*;
 import java.io.IOException;
@@ -28,14 +31,13 @@ public class ProductoBusinessImpl implements ProductoBusiness {
     @Autowired
     YoloNetBusiness yoloNetBusiness;
     @Autowired
-    CompareInterface compareInterface;
-    @Autowired
     ORBFlannPatternBusiness ORBFlannPatternBusiness;
     @Autowired
     KeyPointsBusiness keyPointsBusiness;
     @Autowired
     DescriptorsBusiness descriptorsBusiness;
-
+    @Autowired
+    PatronesRepository patronesRepository;
 
     @Override
     public Producto save(ProductoDto dto) throws Exception {
@@ -54,7 +56,12 @@ public class ProductoBusinessImpl implements ProductoBusiness {
         this.validarProducto(dto);
         Producto producto = dtoService.producto(dto);
         producto.getImagenes().stream().forEach(this::procesarEncodedDataToPatrones);
-        return productoService.save(producto);
+        Producto saved = productoService.save(producto);
+        saved.getImagenes().forEach(imagen -> {
+            imagen.getPatrones().setProductoId(producto.getId());
+            patronesRepository.save(imagen.getPatrones()).block();
+        });
+        return saved;
     }
 
     private void validarProducto(ProductoDto dto) {

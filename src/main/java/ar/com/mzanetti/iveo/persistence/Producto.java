@@ -16,6 +16,7 @@ public class Producto {
     @Id
     private ObjectId id;
     private String usuarioId;
+    private String tipo;
     private String marca;
     private String modelo;
     private String material;
@@ -26,9 +27,9 @@ public class Producto {
     private Date fechaCreacion;
     private Date fechaUltMod;
 
-    @DBRef
+    @DBRef(lazy = true)
     @Cascade
-    private List<Imagen> imagenes;
+    private List<Imagen> imagenes = new ArrayList<>();
 
     private Boolean activo;
 
@@ -137,5 +138,13 @@ public class Producto {
 
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

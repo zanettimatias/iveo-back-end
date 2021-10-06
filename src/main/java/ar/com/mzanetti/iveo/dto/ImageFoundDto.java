@@ -13,11 +13,12 @@ public class ImageFoundDto {
     private Binary image;
     private Patrones patrones;
     private int match;
+    private ObjectId productoId;
 
-    public ImageFoundDto(Imagen imagen) {
-        this.id = imagen.getId();
-        this.image = imagen.getImage();
-        this.patrones = imagen.getPatrones();
+    public ImageFoundDto(ObjectId id, Patrones patrones, ObjectId productoId) {
+        this.id = id;
+        this.patrones = patrones;
+        this.productoId = productoId;
     }
 
     public ObjectId getId() {
@@ -50,5 +51,13 @@ public class ImageFoundDto {
 
     public void setMatch(int match) {
         this.match = match;
+    }
+
+    public ObjectId getProductoId() {
+        return productoId;
+    }
+
+    public void setProductoId(ObjectId productoId) {
+        this.productoId = productoId;
     }
 }

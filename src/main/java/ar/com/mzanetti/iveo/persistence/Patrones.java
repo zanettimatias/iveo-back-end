@@ -14,6 +14,17 @@ public class Patrones {
     private List<Integer> yoloClases;
     private String keyPoints;
     private String descriptors;
+    private ObjectId productoId;
+    private ObjectId imageId;
+
+
+    public ObjectId getProductoId() {
+        return productoId;
+    }
+
+    public void setProductoId(ObjectId productoId) {
+        this.productoId = productoId;
+    }
 
     public ObjectId getId() {
         return id;
@@ -45,5 +56,13 @@ public class Patrones {
 
     public void setDescriptors(String descriptors) {
         this.descriptors = descriptors;
+    }
+
+    public ObjectId getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(ObjectId imageId) {
+        this.imageId = imageId;
     }
 }

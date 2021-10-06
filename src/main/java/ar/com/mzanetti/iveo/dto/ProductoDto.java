@@ -7,6 +7,7 @@ import java.util.List;
 
 public class ProductoDto {
     public String usuarioId;
+    String tipo;
     String marca;
     String modelo;
     String material;
@@ -16,20 +17,8 @@ public class ProductoDto {
     String descripcion;
     List<MultipartFile> files;
 
-    public ProductoDto(String marca, String modelo, String material, String envase, String contenido, String color, String descripcion, List<MultipartFile> files) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.material = material;
-        this.envase = envase;
-        this.contenido = contenido;
-        this.color = color;
-        this.descripcion = descripcion;
-        this.files = files;
-    }
-
-    /*Con el usuarioId, es raro pero puede pasar*/
-    public ProductoDto(String usuarioId, String marca, String modelo, String material, String envase, String contenido, String color, String descripcion, List<MultipartFile> files) {
-        this.usuarioId = usuarioId;
+    public ProductoDto(String tipo, String marca, String modelo, String material, String envase, String contenido, String color, String descripcion, List<MultipartFile> files) {
+        this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
         this.material = material;
@@ -113,5 +102,13 @@ public class ProductoDto {
 
     public void setFiles(List<MultipartFile> files) {
         this.files = files;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }
