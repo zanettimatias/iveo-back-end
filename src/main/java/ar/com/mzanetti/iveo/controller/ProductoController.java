@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +47,7 @@ public class ProductoController {
     /***
      * Metodo para agregar un nuevo producto
      * */
+    @PreAuthorize("@autorizationService.hasRole(authentication, 'ROLE_USUARIO')")
     @RequestMapping(path = "/new", method = POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> addNewMulti(String tipo, String marca, String modelo, String material, String envase,
                                               String contenido, String color, String descripcion,

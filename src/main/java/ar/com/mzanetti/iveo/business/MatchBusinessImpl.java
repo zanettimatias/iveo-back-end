@@ -58,14 +58,7 @@ public class MatchBusinessImpl implements MatchBusiness {
 
         Flux<SpeakDto> stream = patronesRepository.findAll().map(patrones -> new ImageFoundDto(patrones.getId(), patrones, patrones.getProductoId())).filter(patrones ->
                 compareDescriptors(orbPatternUtil.getDescriptors(), DescriptorsBusiness.matFromJson(patrones.getPatrones().getDescriptors()), patrones)
-        ).take(candidates).sort(Comparator.comparingLong(ImageFoundDto::getMatch)).take(1).flatMap(imageFoundDto -> productoRepository.findById(imageFoundDto.getProductoId()).map(SpeakDto::new));;
-        stream.subscribe(dto -> {
-            System.out.println(dto.getColor());
-            System.out.println(dto.getMarca());
-            System.out.println(dto.getMaterial());
-            System.out.println(dto.getEnvase());
-            System.out.println(dto.getDescripcion());
-        });
+        ).take(candidates).sort(Comparator.comparingLong(ImageFoundDto::getMatch)).take(1).flatMap(imageFoundDto -> productoRepository.findById(imageFoundDto.getProductoId()).map(SpeakDto::new));
         return stream;
     }
 

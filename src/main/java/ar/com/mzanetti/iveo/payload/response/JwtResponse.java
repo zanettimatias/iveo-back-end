@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 
 import java.util.List;
 
+
 public class JwtResponse {
     private String token;
     private String type = "Bearer";
