@@ -5,14 +5,16 @@ import org.opencv.features2d.Features2d;
 import org.opencv.features2d.ORB;
 import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SIFFlannPattern {
 
-    public final String img2Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\3.png";
-    public final String img1Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\1.png";
+    public final String img2Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\ejemplo-coca-2.png";
+    public final String img1Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\9-grauy.jpg";
+    public final String img3Url = "C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\ejemplo-coca-2.png";
 
     @Test
     public void compare  () {
@@ -23,6 +25,7 @@ public class SIFFlannPattern {
         String filename2 = img2Url;
         Mat img1 = Imgcodecs.imread(filename1, Imgcodecs.IMREAD_COLOR);
         Mat img2 = Imgcodecs.imread(filename2, Imgcodecs.IMREAD_COLOR);
+        Mat img3 = Imgcodecs.imread(img3Url, Imgcodecs.IMREAD_COLOR);
         if (img1.empty() || img2.empty()) {
             System.err.println("Cannot read images!");
             System.exit(0);
@@ -57,14 +60,19 @@ public class SIFFlannPattern {
 
         //-- Draw matches
         Mat imgMatches = new Mat();
-        Features2d.drawMatches(img1, keypoints1, img2, keypoints2, goodMatches, imgMatches, Scalar.all(-1),
-                Scalar.all(-1), new MatOfByte(), Features2d.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS);
+        Features2d.drawMatches(img1, keypoints1, img2, keypoints2, goodMatches, imgMatches, new Scalar(0,255,255),
+                new Scalar(255,0,255), new MatOfByte(), Features2d.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS);
+
+       //Features2d.drawKeypoints(img3,keypoints2,img3,new Scalar(255,0,255));
 
         //-- Show detected matches
+        Imgcodecs.imwrite("C:\\Users\\Usuario\\IdeaProjects\\iveo-backend\\src\\test\\resources\\bd\\ejemplo-total.png",imgMatches);
         System.out.println("matches:"   + listOfGoodMatches.size());
-        HighGui.imshow("Good Matches", imgMatches);
 
-        System.exit(0);
+
+        HighGui.imshow("Good Matches", imgMatches);
+        HighGui.waitKey();
+       // System.exit(0);
     }
 
 }

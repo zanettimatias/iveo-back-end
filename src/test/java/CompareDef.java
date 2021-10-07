@@ -32,7 +32,7 @@ public class CompareDef {
 
 
         System.setProperty("java.awt.headless", "false");
-        //System.out.println(orbFlannPatternFactory.compare(img1,img2));
+        System.out.println(orbFlannPatternFactory.compare(img1,img2));
 
     }
 
