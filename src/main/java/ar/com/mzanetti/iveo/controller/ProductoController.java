@@ -1,34 +1,21 @@
 package ar.com.mzanetti.iveo.controller;
 
-import ar.com.mzanetti.iveo.business.ImagenBusines;
 import ar.com.mzanetti.iveo.business.MatchBusiness;
 import ar.com.mzanetti.iveo.business.ProductoBusiness;
-import ar.com.mzanetti.iveo.dto.ImageFoundDto;
 import ar.com.mzanetti.iveo.dto.ProductoDto;
 import ar.com.mzanetti.iveo.dto.SpeakDto;
-import ar.com.mzanetti.iveo.persistence.Patrones;
-import ar.com.mzanetti.iveo.persistence.Producto;
 import ar.com.mzanetti.iveo.repository.ProductoRepository;
-import org.apache.commons.io.IOUtils;
-import org.bson.types.ObjectId;
-import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.function.ServerResponse;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.*;
-import java.io.FileInputStream;
-import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
