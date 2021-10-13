@@ -4,10 +4,13 @@ import org.bson.json.JsonObject;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
 
+import java.util.List;
+
 public class OrbPatternUtil {
 
     private MatOfKeyPoint keyPoints;
     private Mat descriptors;
+    private List<Integer> yoloClasses;
 
     public OrbPatternUtil(MatOfKeyPoint keyPoints, Mat descriptors) {
         this.keyPoints = keyPoints;
@@ -28,5 +31,13 @@ public class OrbPatternUtil {
 
     public void setDescriptors(Mat descriptors) {
         this.descriptors = descriptors;
+    }
+
+    public List<Integer> getYoloClasses() {
+        return yoloClasses;
+    }
+
+    public void setYoloClasses(List<Integer> yoloClasses) {
+        this.yoloClasses = yoloClasses;
     }
 }

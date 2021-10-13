@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 public interface PatronesRepository extends ReactiveMongoRepository<Patrones, ObjectId> {
-    @Override
-    Flux<Patrones> findAll();
+    Flux<Patrones> findByUser(String user);
+    Flux<Patrones> findByUserNot(String user);
 }

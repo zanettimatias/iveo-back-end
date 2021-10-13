@@ -58,7 +58,7 @@ public class ProductoBusinessImpl implements ProductoBusiness {
         producto.getImagenes().stream().forEach(this::procesarEncodedDataToPatrones);
         Producto saved = productoService.save(producto);
         saved.getImagenes().forEach(imagen -> {
-            imagen.getPatrones().setProductoId(producto.getId());
+            imagen.getPatrones().productoId(producto.getId()).user(producto.getUsuarioId());
             patronesRepository.save(imagen.getPatrones()).block();
         });
         return saved;

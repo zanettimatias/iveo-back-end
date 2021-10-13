@@ -9,6 +9,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,16 @@ public class YoloNetBussinessImpl implements YoloNetBusiness {
     @Override
     public List<Integer> getClassFounded(Imagen imagen) throws IOException {
         return yoloNetService.predict(compareBusiness.transformToMatByte(
-                imagen.getImage().getData())).stream().map(ObjectDetectionResult::getClassId).collect(Collectors.toList());
+                imagen.getImage().getData())).stream().map(ObjectDetectionResult -> {
+            System.out.println(ObjectDetectionResult.getClassName());
+            return ObjectDetectionResult.getClassId();
+        }).collect(Collectors.toList());
+    }
+    @Override
+    public List<Integer> getClassFounded(Mat imagen) {
+        return yoloNetService.predict(imagen).stream().map(ObjectDetectionResult -> {
+            System.out.println(ObjectDetectionResult.getClassName());
+            return ObjectDetectionResult.getClassId();
+        }).collect(Collectors.toList());
     }
 }

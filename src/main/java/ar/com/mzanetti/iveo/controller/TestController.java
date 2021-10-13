@@ -39,7 +39,7 @@ public class TestController {
         FileInputStream input = new FileInputStream(img2Url);
         MultipartFile multipartFile = new MockMultipartFile("fileItem",
                 "1.png", "image/png", IOUtils.toByteArray(input));
-        business.getCandidate(multipartFile);
+       // business.getCandidate(multipartFile);
         return ResponseEntity.ok("sucess");
     }
 

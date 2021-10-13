@@ -91,7 +91,7 @@ public class YoloNetServiceImpl implements YoloNetService {
         net.forward(outs, outNames);
         List<ObjectDetectionResult> result = postprocess(frame, outs);
         inputBlob.release();
-
+        result.forEach(objectDetectionResult -> System.out.println(objectDetectionResult.getClassName()));
         return result;
     }
 

@@ -1,6 +1,5 @@
 package ar.com.mzanetti.iveo.persistence;
 
-import org.bson.json.JsonObject;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,8 +14,10 @@ public class Patrones {
     private String keyPoints;
     private String descriptors;
     private ObjectId productoId;
-    private ObjectId imageId;
+    private String user;
 
+    public Patrones() {
+    }
 
     public ObjectId getProductoId() {
         return productoId;
@@ -58,11 +59,19 @@ public class Patrones {
         this.descriptors = descriptors;
     }
 
-    public ObjectId getImageId() {
-        return imageId;
+    public String getUser() {
+        return user;
     }
 
-    public void setImageId(ObjectId imageId) {
-        this.imageId = imageId;
+    public void setUser(String user) {
+        this.user = user;
+    }
+    public Patrones user(String user) {
+        this.setUser(user);
+        return this;
+    }
+    public Patrones productoId(ObjectId producto) {
+        this.setProductoId(producto);
+        return this;
     }
 }

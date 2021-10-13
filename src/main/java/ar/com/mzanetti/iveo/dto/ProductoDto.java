@@ -29,6 +29,19 @@ public class ProductoDto {
         this.files = files;
     }
 
+    public ProductoDto(String usuarioId, String tipo, String marca, String modelo, String material, String envase, String contenido, String color, String descripcion, List<MultipartFile> files) {
+        this.usuarioId = usuarioId;
+        this.tipo = tipo;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.material = material;
+        this.envase = envase;
+        this.contenido = contenido;
+        this.color = color;
+        this.descripcion = descripcion;
+        this.files = files;
+    }
+
     public ProductoDto() {
     }
 
